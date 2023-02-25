@@ -5,6 +5,7 @@ resource "tls_private_key" "key" {
 
 output "cluster_private_key" {
   value = tls_private_key.key.private_key_pem
+  sensitive = true
 }
 
 output "cluster_public_key" {

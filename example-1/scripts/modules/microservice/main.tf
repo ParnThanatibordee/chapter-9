@@ -150,7 +150,7 @@ resource "kubernetes_service" "service" {
             pod = kubernetes_deployment.service_deployment.metadata[0].labels.pod
         }   
 
-        session_affinity = var.session_affinity
+        session_affinity = "ClientIP"
 
         port {
             port        = 80
