@@ -48,5 +48,13 @@
                 </div>
             </div>
         </div>
+        <div class="adsbar">
+            {{#if ads}}
+                    <h1 class="active">Advertising: {{ads.name}}</h1>
+                    <a href={{ads.url}}>{{ads.url}}</a>
+            {{else}}
+                No ads uploaded yet.
+            {{/if}}
+        </div>
     </body>
 </html>

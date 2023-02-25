@@ -15,6 +15,30 @@ function setupHandlers(app) {
     // Main web page that lists videos.
     //
     app.get("/", (req, res) => {
+        // http.request( // Get the list of videos from the metadata microservice.
+        //     {
+        //         host: `metadata`,
+        //         path: `/videos`,
+        //         method: `GET`,
+        //     },
+        //     (response) => {
+        //         let data = "";
+        //         response.on("data", chunk => {
+        //             data += chunk;
+        //         });
+
+        //         response.on("end", () => {
+        //             // Renders the video list for display in the browser.
+        //             res.render("video-list", { videos: JSON.parse(data).videos });
+        //         });
+
+        //         response.on("error", err => {
+        //             console.error("Failed to get video list.");
+        //             console.error(err || `Status code: ${response.statusCode}`);
+        //             res.sendStatus(500);
+        //         });
+        //     }
+        // ).end();
         http.request( // Get the list of videos from the metadata microservice.
             {
                 host: `metadata`,
@@ -26,10 +50,14 @@ function setupHandlers(app) {
                 response.on("data", chunk => {
                     data += chunk;
                 });
+                
 
                 response.on("end", () => {
                     // Renders the video list for display in the browser.
-                    res.render("video-list", { videos: JSON.parse(data).videos });
+                    res.render("video-list", { videos: JSON.parse(data).videos, ads: {
+                        name: "Agoda",
+                        url: "https://www.agoda.com/"
+                    } });
                 });
 
                 response.on("error", err => {
@@ -82,7 +110,10 @@ function setupHandlers(app) {
     // Web page to upload a new video.
     //
     app.get("/upload", (req, res) => {
-        res.render("upload-video", {});
+        res.render("upload-video", {ads: {
+            name: "Agoda",
+            url: "https://www.agoda.com/"
+        }});
     });
 
     //
@@ -103,7 +134,10 @@ function setupHandlers(app) {
 
                 response.on("end", () => {
                     // Renders the history for display in the browser.
-                    res.render("history", { videos: JSON.parse(data).videos });
+                    res.render("history", { videos: JSON.parse(data).videos, ads: {
+                        name: "Kasetsart University",
+                        url: "https://www.ku.ac.th/"
+                    } });
                 });
 
                 response.on("error", err => {
